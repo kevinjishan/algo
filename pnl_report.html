@@ -4,365 +4,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETH 그리드 트레이딩 PnL 모니터링</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>ETH 그리드 트레이딩 PnL 보고서</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #4CAF50;
-        }
-        
-        .header h1 {
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .header .subtitle {
-            color: #666;
-            font-size: 1.2em;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-left: 5px solid #4CAF50;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-card.danger {
-            border-left-color: #f44336;
-        }
-        
-        .stat-card.warning {
-            border-left-color: #ff9800;
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .stat-value {
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .stat-change {
-            font-size: 13px;
-            font-weight: 500;
-        }
-        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0; }
+        .status-card { background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50; }
+        .status-card.warning { border-left-color: #ff9800; }
+        .status-card.danger { border-left-color: #f44336; }
+        .metric { font-size: 24px; font-weight: bold; color: #333; }
+        .label { font-size: 14px; color: #666; margin-bottom: 5px; }
+        .change { font-size: 12px; }
         .positive { color: #4CAF50; }
         .negative { color: #f44336; }
         .neutral { color: #666; }
-        
-        .chart-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .info-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .info-card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        .position-item {
-            background: #f8f9fa;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .position-item.short {
-            border-left-color: #f44336;
-        }
-        
-        .trade-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        
-        .trade-table th,
-        .trade-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .trade-table th {
-            background: #f5f5f5;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .timestamp {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .auto-refresh {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
+        .positions { margin: 20px 0; }
+        .position { background: #f1f3f4; padding: 10px; margin: 5px 0; border-radius: 5px; }
+        .trades { margin: 20px 0; }
+        .timestamp { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f5f5f5; font-weight: 600; }
+        .chart-container { width: 100%; height: 350px; margin: 30px 0; }
+        .calendar-container { width: 100%; margin: 30px 0; }
+        .indicator-box { display: flex; gap: 20px; margin: 20px 0; }
+        .indicator { background: #e3f2fd; padding: 10px 20px; border-radius: 8px; font-size: 18px; }
     </style>
 </head>
 <body>
-    <div class="auto-refresh">
-        🔄 자동 새로고침: <span id="countdown">60</span>초
-    </div>
-    
     <div class="container">
         <div class="header">
-            <h1>🚀 ETH 그리드 트레이딩</h1>
-            <div class="subtitle">실시간 PnL 모니터링 대시보드</div>
+            <h1>🚀 ETH 그리드 트레이딩 PnL 보고서</h1>
+            <h3>실시간 성과 모니터링</h3>
         </div>
         
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">💰 지갑 잔고</div>
-                <div class="stat-value">$732.28</div>
-                <div class="stat-change positive">
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="label">💰 지갑 잔고</div>
+                <div class="metric">$732.28</div>
+                <div class="change positive">
                     24h: $+0.00
                 </div>
             </div>
             
-            <div class="stat-card warning">
-                <div class="stat-label">📈 미실현 PnL</div>
-                <div class="stat-value negative">$-0.00</div>
-                <div class="stat-change positive">
+            <div class="status-card warning">
+                <div class="label">📈 미실현 손익</div>
+                <div class="metric negative">$-0.00</div>
+                <div class="change positive">
                     24h: $+0.00
                 </div>
             </div>
             
-            <div class="stat-card">
-                <div class="stat-label">📊 수익률</div>
-                <div class="stat-value negative">-0.001%</div>
-                <div class="stat-change neutral">총 잔고 기준</div>
+            <div class="status-card">
+                <div class="label">📊 수익률</div>
+                <div class="metric negative">-0.00%</div>
+                <div class="change">총 마진 기준</div>
             </div>
             
-            <div class="stat-card">
-                <div class="stat-label">💎 ETH 가격</div>
-                <div class="stat-value">$2548.39</div>
-                <div class="stat-change negative">
-                    24h: -1.18%
+            <div class="status-card">
+                <div class="label">💎 ETH 가격</div>
+                <div class="metric">$2548.01</div>
+                <div class="change negative">
+                    24h: -1.20%
                 </div>
             </div>
         </div>
         
-        <div class="chart-container">
-            <h3>📈 PnL 추이 (최근 24시간)</h3>
-            <canvas id="pnlChart" width="400" height="200"></canvas>
+        <div class="chart-container" id="pnl_chart"></div>
+        <div class="chart-container" id="wallet_chart"></div>
+        <div class="calendar-container">
+            <div id="calendar"></div>
+        </div>
+        <div class="indicator-box">
+            <div class="indicator">RSI: 52.72</div>
+            <div class="indicator">MA: 2539.88</div>
+            <div class="indicator">ATR: 14.01</div>
+            <div class="indicator">펀딩비: 0.00 USDT</div>
+            <div class="indicator">레버리지: 0.00x</div>
+        </div>
+        <div class="positions">
+            <h3>🎯 현재 포지션/그리드 상태</h3>
+            
+        
+            <div class="position">
+                <strong>LONG</strong>: 0.223000 ETH @ $2550.95 
+                | 가치: $568.22 
+                | PnL: <span class="negative">$-0.64 (-0.56%)</span>
+            </div>
+            
+            <div class="position">
+                <strong>SHORT</strong>: 0.222000 ETH @ $2550.95 
+                | 가치: $565.67 
+                | PnL: <span class="positive">$0.64 (0.39%)</span>
+            </div>
+            
         </div>
         
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>🎯 현재 포지션</h3>
-                
-
-                <div class="position-item ">
-                    <strong>LONG</strong>: 0.223000 ETH<br>
-                    진입가: $2550.95 | 현재가: $2548.39<br>
-                    PnL: <span class="negative">$-0.50 (-0.44%)</span>
-                </div>
-            
-                <div class="position-item short">
-                    <strong>SHORT</strong>: 0.222000 ETH<br>
-                    진입가: $2550.95 | 현재가: $2548.39<br>
-                    PnL: <span class="positive">$0.50 (0.30%)</span>
-                </div>
-            
-            </div>
-            
-            <div class="info-card">
-                <h3>📋 거래 요약 (최근 30분)</h3>
-                <table class="trade-table">
-                    <tr>
-                        <th>항목</th>
-                        <th>값</th>
-                    </tr>
-                    <tr>
-                        <td>거래 건수</td>
-                        <td>69건</td>
-                    </tr>
-                    <tr>
-                        <td>매수량</td>
-                        <td>1.198000 ETH</td>
-                    </tr>
-                    <tr>
-                        <td>매도량</td>
-                        <td>1.199000 ETH</td>
-                    </tr>
-                    <tr>
-                        <td>수수료</td>
-                        <td>$2.537</td>
-                    </tr>
-                    <tr>
-                        <td>포지션 변화</td>
-                        <td class="negative">
-                            -0.001000 ETH
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            
-            <div class="info-card">
-                <h3>📝 미체결 주문</h3>
-                <table class="trade-table">
-                    <tr>
-                        <th>구분</th>
-                        <th>개수</th>
-                    </tr>
-                    <tr>
-                        <td>매수 주문</td>
-                        <td>0개</td>
-                    </tr>
-                    <tr>
-                        <td>매도 주문</td>
-                        <td>5개</td>
-                    </tr>
-                    <tr>
-                        <td>총 주문</td>
-                        <td><strong>5개</strong></td>
-                    </tr>
-                </table>
-            </div>
+                 <div class="trades">
+             <h3>📋 거래 요약 (최근 30분)</h3>
+            <table>
+                <tr>
+                    <th>항목</th>
+                    <th>값</th>
+                </tr>
+                <tr>
+                    <td>거래 건수</td>
+                    <td>68건</td>
+                </tr>
+                <tr>
+                    <td>매수량</td>
+                    <td>1.180000 ETH ($3010.72)</td>
+                </tr>
+                <tr>
+                    <td>매도량</td>
+                    <td>1.199000 ETH ($3059.13)</td>
+                </tr>
+                <tr>
+                    <td>🔧 실제 PnL (미실현 손익)</td>
+                    <td class="negative">
+                        $-0.00
+                    </td>
+                </tr>
+                <tr>
+                    <td>포지션 변화</td>
+                    <td class="negative">
+                        -0.019000 ETH
+                    </td>
+                </tr>
+                <tr>
+                    <td>수수료</td>
+                    <td>$2.528</td>
+                </tr>
+            </table>
         </div>
         
         <div class="timestamp">
-            마지막 업데이트: 2025-07-08T17:50:31.428691<br>
-            🔄 매 1분마다 자동 업데이트
+            마지막 업데이트: 2025-07-08T17:51:12.784591
         </div>
     </div>
-    
     <script>
-        // PnL 차트 생성
-        const ctx = document.getElementById('pnlChart').getContext('2d');
-        const chartData = [{"time": "17:33", "pnl": -0.0017153500000000044, "price": 2551.28}, {"time": "17:34", "pnl": 0.022498240000000003, "price": 2548.94}, {"time": "17:35", "pnl": -0.004350909999999986, "price": 2548.21}, {"time": "17:36", "pnl": -0.004543719999999918, "price": 2548.01}, {"time": "17:38", "pnl": -0.004114029999999991, "price": 2548.53}, {"time": "17:39", "pnl": -0.004064750000000061, "price": 2548.54}, {"time": "17:40", "pnl": -0.0036209100000000327, "price": 2549.01}, {"time": "17:40", "pnl": -0.00361091, "price": 2549.05}, {"time": "17:41", "pnl": -0.003718160000000026, "price": 2548.82}, {"time": "17:41", "pnl": -0.00400263, "price": 2548.65}, {"time": "17:41", "pnl": -0.00385091, "price": 2548.57}, {"time": "17:42", "pnl": -0.00402013999999995, "price": 2548.3}, {"time": "17:43", "pnl": -0.0052509099999999975, "price": 2547.41}, {"time": "17:44", "pnl": -0.004833429999999916, "price": 2547.89}, {"time": "17:44", "pnl": -0.00493591, "price": 2547.7}, {"time": "17:45", "pnl": -0.00438090999999996, "price": 2548.27}, {"time": "17:46", "pnl": -0.004100910000000013, "price": 2548.21}, {"time": "17:47", "pnl": -0.0037818099999999966, "price": 2548.67}, {"time": "17:47", "pnl": -0.00326091, "price": 2549.27}, {"time": "17:48", "pnl": -0.00239898, "price": 2550.28}, {"time": "17:48", "pnl": -0.002982700000000005, "price": 2549.51}, {"time": "17:48", "pnl": -0.00338624, "price": 2549.69}, {"time": "17:49", "pnl": -0.0036413100000000087, "price": 2548.93}, {"time": "17:50", "pnl": -0.00396091000000004, "price": 2548.39}];
-        
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: chartData.map(d => d.time),
-                datasets: [{
-                    label: 'PnL ($)',
-                    data: chartData.map(d => d.pnl),
-                    borderColor: '#4CAF50',
-                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        grid: {
-                            color: 'rgba(0,0,0,0.1)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(0,0,0,0.1)'
-                        }
-                    }
-                }
-            }
-        });
-        
-        // 자동 새로고침
-        let countdown = 60;
-        const countdownElement = document.getElementById('countdown');
-        
-        setInterval(() => {
-            countdown--;
-            countdownElement.textContent = countdown;
-            
-            if (countdown <= 0) {
-                location.reload();
-            }
-        }, 1000);
+    // 차트/달력용 데이터 (실제 데이터는 2차에서 삽입)
+    const realizedPnl = [{'date': '2025-07-08', 'realized': 4.184072549998957}];
+    const unrealizedPnl = [{'date': '2025-07-08', 'unrealized': -0.00459566}];
+    const walletTrend = [{'date': '2025-07-08', 'balance': 732.28279922}];
+    const fundingFee = [{'date': '2025-07-08', 'funding': 0}];
+    const leverageFee = [{'date': '2025-07-08', 'leverage': 0}];
+    // --- 실현/미실현 손익, 잔고 추이 Plotly 차트 (1차) ---
+    const dates = realizedPnl.map(x => x.date);
+    const realized = realizedPnl.map(x => x.realized);
+    const unrealized = unrealizedPnl.map(x => x.unrealized);
+    const wallet = walletTrend.map(x => x.balance);
+    Plotly.newPlot('pnl_chart', [
+      {x: dates, y: realized, name: '실현 손익', type: 'scatter', mode: 'lines+markers', line: {color: '#4CAF50'}},
+      {x: dates, y: unrealized, name: '미실현 손익', type: 'scatter', mode: 'lines+markers', line: {color: '#2196F3'}}
+    ], {title: '실현/미실현 손익 추이', xaxis: {title: '날짜'}, yaxis: {title: 'USDT'}, legend: {orientation: 'h'}});
+    Plotly.newPlot('wallet_chart', [
+      {x: dates, y: wallet, name: '지갑 잔고', type: 'scatter', mode: 'lines+markers', line: {color: '#FF9800'}}
+    ], {title: '지갑 잔고 추이', xaxis: {title: '날짜'}, yaxis: {title: 'USDT'}});
+    // --- 펀딩비/레버리지비 차트 ---
+    const funding = fundingFee.map(x => x.funding);
+    const leverage = leverageFee.map(x => x.leverage);
+    Plotly.newPlot('funding_chart', [
+      {x: dates, y: funding, name: '펀딩비', type: 'bar', marker: {color: '#00bcd4'}},
+      {x: dates, y: leverage, name: '레버리지비', type: 'bar', marker: {color: '#9c27b0'}}
+    ], {barmode: 'group', title: '펀딩비/레버리지비', xaxis: {title: '날짜'}, yaxis: {title: 'USDT'}});
+    // --- 달력(heatmap) ---
+    const calendarEl = document.getElementById('calendar');
+    const calendarEvents = realizedPnl.map(x => {
+      title: (x.realized >= 0 ? '+' : '') + x.realized,
+      start: x.date,
+      color: x.realized > 0 ? '#4CAF50' : (x.realized < 0 ? '#f44336' : '#bdbdbd')
+    });
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {left: 'prev,next today', center: 'title', right: 'dayGridMonth,dayGridWeek,dayGridYear'},
+      events: calendarEvents,
+      eventDisplay: 'block',
+      height: 500
+    });
+    calendar.render();
+    // 포지션/그리드 테이블 예시 (Python 객체 → JSON)
+    const positions = [{"side": "LONG", "amount": 0.223, "entry_price": 2550.953239192, "market_value": 568.21855118, "pnl": -0.64402115, "pnl_rate": -0.56}, {"side": "SHORT", "amount": 0.222, "entry_price": 2550.945546944, "market_value": 565.67048593, "pnl": 0.63942549, "pnl_rate": 0.39}];
+    const posDiv = document.querySelector('.positions');
+    let posTable = `<table><tr><th>구분</th><th>수량</th><th>진입가</th><th>가치</th><th>PnL</th></tr>`;
+    if (positions && positions.length > 0) {
+      positions.forEach(pos => {
+        posTable += `<tr><td>${pos.side}</td><td>${pos.amount}</td><td>${pos.entry_price}</td><td>${pos.market_value}</td><td>${pos.pnl}</td></tr>`;
+      });
+    }
+    posTable += `</table>`;
+    posDiv.innerHTML += posTable;
     </script>
 </body>
 </html>
