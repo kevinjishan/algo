@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETH 그리드 트레이딩 PnL 모니터링</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4CAF50;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #4CAF50;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card.danger {
+            border-left-color: #f44336;
+        }
+        
+        .stat-card.warning {
+            border-left-color: #ff9800;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .stat-change {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .positive { color: #4CAF50; }
+        .negative { color: #f44336; }
+        .neutral { color: #666; }
+        
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .position-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .position-item.short {
+            border-left-color: #f44336;
+        }
+        
+        .trade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .trade-table th,
+        .trade-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .trade-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .timestamp {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .auto-refresh {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="auto-refresh">
+        🔄 자동 새로고침: <span id="countdown">60</span>초
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ETH 그리드 트레이딩</h1>
+            <div class="subtitle">실시간 PnL 모니터링 대시보드</div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">💰 지갑 잔고</div>
+                <div class="stat-value">$739.51</div>
+                <div class="stat-change positive">
+                    24h: $+0.00
+                </div>
+            </div>
+            
+            <div class="stat-card ">
+                <div class="stat-label">📈 미실현 PnL</div>
+                <div class="stat-value positive">$0.53</div>
+                <div class="stat-change positive">
+                    24h: $+0.00
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">📊 수익률</div>
+                <div class="stat-value positive">0.071%</div>
+                <div class="stat-change neutral">총 잔고 기준</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">💎 ETH 가격</div>
+                <div class="stat-value">$2539.28</div>
+                <div class="stat-change negative">
+                    24h: -1.28%
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>📈 PnL 추이 (최근 24시간)</h3>
+            <canvas id="pnlChart" width="400" height="200"></canvas>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🎯 현재 포지션</h3>
+                
+
+                <div class="position-item ">
+                    <strong>LONG</strong>: 1.037000 ETH<br>
+                    진입가: $2533.89 | 현재가: $2539.28<br>
+                    PnL: <span class="positive">$5.59 (1.97%)</span>
+                </div>
+            
+                <div class="position-item short">
+                    <strong>SHORT</strong>: 1.017000 ETH<br>
+                    진입가: $2534.30 | 현재가: $2539.28<br>
+                    PnL: <span class="negative">$-5.07 (-1.82%)</span>
+                </div>
+            
+            </div>
+            
+            <div class="info-card">
+                <h3>📋 거래 요약 (최근 30분)</h3>
+                <table class="trade-table">
+                    <tr>
+                        <th>항목</th>
+                        <th>값</th>
+                    </tr>
+                    <tr>
+                        <td>거래 건수</td>
+                        <td>21건</td>
+                    </tr>
+                    <tr>
+                        <td>매수량</td>
+                        <td>0.152000 ETH</td>
+                    </tr>
+                    <tr>
+                        <td>매도량</td>
+                        <td>0.247000 ETH</td>
+                    </tr>
+                    <tr>
+                        <td>수수료</td>
+                        <td>$0.275</td>
+                    </tr>
+                    <tr>
+                        <td>포지션 변화</td>
+                        <td class="negative">
+                            -0.095000 ETH
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="info-card">
+                <h3>📝 미체결 주문</h3>
+                <table class="trade-table">
+                    <tr>
+                        <th>구분</th>
+                        <th>개수</th>
+                    </tr>
+                    <tr>
+                        <td>매수 주문</td>
+                        <td>4개</td>
+                    </tr>
+                    <tr>
+                        <td>매도 주문</td>
+                        <td>4개</td>
+                    </tr>
+                    <tr>
+                        <td>총 주문</td>
+                        <td><strong>8개</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="timestamp">
+            마지막 업데이트: 2025-07-08T13:52:29.953738<br>
+            🔄 매 1분마다 자동 업데이트
+        </div>
+    </div>
+    
+    <script>
+        // PnL 차트 생성
+        const ctx = document.getElementById('pnlChart').getContext('2d');
+        const chartData = [{"time": "13:29", "pnl": 0.65046524, "price": 2533.67}, {"time": "13:30", "pnl": 0.9241537499999999, "price": 2534.84}, {"time": "13:31", "pnl": 0.8090137499999996, "price": 2537.63}, {"time": "13:32", "pnl": 0.5793211099999995, "price": 2540.83}, {"time": "13:33", "pnl": 0.69715375, "price": 2539.16}, {"time": "13:34", "pnl": 0.51385375, "price": 2540.95}, {"time": "13:35", "pnl": 0.4875337499999999, "price": 2541.16}, {"time": "13:36", "pnl": 0.43489374999999963, "price": 2541.74}, {"time": "13:37", "pnl": 0.3164537499999991, "price": 2543.13}, {"time": "13:38", "pnl": 0.3521737500000004, "price": 2542.81}, {"time": "13:39", "pnl": 0.49129375000000053, "price": 2540.88}, {"time": "13:40", "pnl": 0.4555737500000001, "price": 2541.73}, {"time": "13:41", "pnl": 0.47334994999999935, "price": 2541.34}, {"time": "13:42", "pnl": 0.5022782699999997, "price": 2541.11}, {"time": "13:43", "pnl": 0.5272937500000001, "price": 2540.0}, {"time": "13:44", "pnl": 0.5282240099999997, "price": 2540.07}, {"time": "13:45", "pnl": 0.5577137499999996, "price": 2540.88}, {"time": "13:46", "pnl": 0.57438944, "price": 2541.49}, {"time": "13:47", "pnl": 0.51474391, "price": 2539.53}, {"time": "13:48", "pnl": 0.5460137500000002, "price": 2540.59}, {"time": "13:49", "pnl": 0.5383337700000004, "price": 2540.29}, {"time": "13:50", "pnl": 0.49424051, "price": 2539.01}, {"time": "13:51", "pnl": 0.5407037399999997, "price": 2540.02}, {"time": "13:52", "pnl": 0.5259037400000004, "price": 2539.28}];
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartData.map(d => d.time),
+                datasets: [{
+                    label: 'PnL ($)',
+                    data: chartData.map(d => d.pnl),
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 자동 새로고침
+        let countdown = 60;
+        const countdownElement = document.getElementById('countdown');
+        
+        setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                location.reload();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+        
