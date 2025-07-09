@@ -1,0 +1,15 @@
+# API 키 파일
+my_key.py
+
+# 파이썬 캐시 및 가상환경
+__pycache__/
+*.pyc
+venv/
+.env
+
+# 로그 및 거래 기록 폴더
+logs/
+history/
+
+# macOS 시스템 파일
+.DS_Store
