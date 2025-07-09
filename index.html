@@ -1,0 +1,53 @@
+
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Grid Bot 상태 대시보드</title>
+        <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+            .container { max-width: 1200px; margin: auto; background-color: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+            h1, h2, h4 { color: #ffffff; border-bottom: 2px solid #333; padding-bottom: 10px; }
+            .header { display: flex; justify-content: space-between; align-items: center; }
+            .header span { font-size: 0.9em; color: #888; }
+            .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+            .status-grid div { background-color: #2a2a2a; padding: 20px; border-radius: 5px; text-align: center; }
+            .status-grid span { display: block; margin-bottom: 10px; color: #aaa; }
+            .status-grid strong { font-size: 1.8em; color: #fff; }
+            .text-green { color: #4caf50 !important; }
+            .text-red { color: #f44336 !important; }
+            .styled-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            .styled-table th, .styled-table td { padding: 12px 15px; border: 1px solid #333; text-align: center; }
+            .styled-table thead tr { background-color: #007bff; color: #ffffff; }
+            .styled-table tbody tr:nth-of-type(even) { background-color: #2a2a2a; }
+            .styled-table tbody tr:hover { background-color: #3a3a3a; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>📈 Dynamic Grid Bot 대시보드</h1>
+                <span>Last Updated: 2025-07-09 20:44:26</span>
+            </div>
+
+            <h2>실시간 현황</h2>
+            
+            <div class="status-grid">
+                <div><span>총 평가 자산 (Equity)</span><strong class="">$728.39</strong></div>
+                <div><span>USDT 잔고</span><strong>$728.39</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="">$0.00</strong></div>
+            </div>
+            <h4>현재 포지션</h4>
+            <table class="styled-table">
+                <thead><tr><th>Symbol</th><th>Side</th><th>Amount</th><th>Entry Price</th><th>Mark Price</th><th>Unrealized PNL</th></tr></thead>
+                <tbody><tr><td colspan='6'>현재 활성 포지션이 없습니다.</td></tr></tbody>
+            </table>
+        
+
+            <h2>거래 기록</h2>
+            <h3>거래 내역이 없습니다.</h3>
+        </div>
+    </body>
+    </html>
+    
