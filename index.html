@@ -28,25 +28,409 @@
         <div class="container">
             <div class="header">
                 <h1>📈 Dynamic Grid Bot 대시보드</h1>
-                <span>Last Updated: 2025-07-10 00:45:10</span>
+                <span>Last Updated: 2025-07-10 00:51:22</span>
             </div>
 
             <h2>실시간 현황</h2>
             
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="">$728.39</strong></div>
-                <div><span>USDT 잔고</span><strong>$728.39</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="">$0.00</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-green">$728.02</strong></div>
+                <div><span>USDT 잔고</span><strong>$728.02</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-green">$0.20</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
                 <thead><tr><th>Symbol</th><th>Side</th><th>Amount</th><th>Entry Price</th><th>Mark Price</th><th>Unrealized PNL</th></tr></thead>
-                <tbody><tr><td colspan='6'>현재 활성 포지션이 없습니다.</td></tr></tbody>
+                <tbody>
+                <tr>
+                    <td>SOLUSDT</td>
+                    <td>LONG</td>
+                    <td>0.3600</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$0.01</td>
+                </tr>
+            
+                <tr>
+                    <td>SOLUSDT</td>
+                    <td>SHORT</td>
+                    <td>-1.9200</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$0.16</td>
+                </tr>
+            
+                <tr>
+                    <td>ETHUSDT</td>
+                    <td>SHORT</td>
+                    <td>-0.1710</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$0.01</td>
+                </tr>
+            
+                <tr>
+                    <td>BTCUSDT</td>
+                    <td>SHORT</td>
+                    <td>-0.0050</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$0.02</td>
+                </tr>
+            </tbody>
             </table>
         
 
             <h2>거래 기록</h2>
-            <h3>거래 내역이 없습니다.</h3>
+            <table border="1" class="dataframe styled-table history-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>시간</th>
+      <th>작업</th>
+      <th>포지션</th>
+      <th>가격</th>
+      <th>수량</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025-07-09 15:51:16</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.97</td>
+      <td>0.0481</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:51:14</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,654.05</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:51:12</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$108,995.00</td>
+      <td>0.0050</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:51:05</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.94</td>
+      <td>0.0493</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:51:02</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,654.07</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:54</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.95</td>
+      <td>0.0497</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:52</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.99</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:44</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.90</td>
+      <td>0.0490</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:42</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.47</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:33</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.89</td>
+      <td>0.0482</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:31</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.08</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:23</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.89</td>
+      <td>0.0474</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:21</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.45</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:13</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.85</td>
+      <td>0.0466</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:50:03</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.83</td>
+      <td>0.0459</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:52</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.84</td>
+      <td>0.0450</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:42</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.89</td>
+      <td>0.0442</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:32</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.96</td>
+      <td>0.0433</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:22</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$153.97</td>
+      <td>0.0425</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:20</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.13</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:11</td>
+      <td>dynamic_ratio_long_(50.00%)</td>
+      <td>long</td>
+      <td>$154.01</td>
+      <td>0.0417</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:08</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.81</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:49:00</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.06</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:58</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,654.00</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:50</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.06</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:48</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,654.00</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:39</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.06</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:37</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.67</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:29</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.03</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:27</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.08</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:17</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.36</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:48:07</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.02</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:57</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.02</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:48</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.04</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:46</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.99</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:38</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.04</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:36</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.15</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:26</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.33</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:18</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.05</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:16</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,653.65</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:08</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.06</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:47:06</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,652.99</td>
+      <td>0.0094</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:46:57</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.02</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:46:37</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.00</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:45:48</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.02</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:45:39</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$154.02</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:45:29</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$153.99</td>
+      <td>0.1623</td>
+    </tr>
+    <tr>
+      <td>2025-07-09 15:45:07</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,647.95</td>
+      <td>0.0094</td>
+    </tr>
+  </tbody>
+</table>
         </div>
     </body>
     </html>
