@@ -40,16 +40,16 @@
             <div class="header">
                 <h1>📈 Dynamic Grid Bot 대시보드</h1>
                 <div class="header-right">
-                    <span>Last Updated: 2025-07-12 22:41:08</span>
+                    <span>Last Updated: 2025-07-12 22:42:42</span>
                     <button id="refresh-button">Updating...</button>
                 </div>
             </div>
             <h2>실시간 현황</h2>
             
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="text-green">$650.10</strong></div>
-                <div><span>USDT 잔고</span><strong>$650.10</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-green">$1.95</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-green">$649.65</strong></div>
+                <div><span>USDT 잔고</span><strong>$649.65</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-green">$1.49</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
@@ -61,7 +61,7 @@
                     <td>2.0000</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.10</td>
+                    <td class="text-red">$-0.46</td>
                 </tr>
             
                 <tr>
@@ -70,7 +70,7 @@
                     <td>-0.3900</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.03</td>
+                    <td class="text-green">$0.04</td>
                 </tr>
             
                 <tr>
@@ -79,7 +79,7 @@
                     <td>0.2380</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.75</td>
+                    <td class="text-green">$0.15</td>
                 </tr>
             
                 <tr>
@@ -88,7 +88,7 @@
                     <td>-0.1890</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$1.04</td>
+                    <td class="text-green">$1.52</td>
                 </tr>
             
                 <tr>
@@ -97,7 +97,7 @@
                     <td>0.0020</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.08</td>
+                    <td class="text-red">$-0.01</td>
                 </tr>
             
                 <tr>
@@ -106,7 +106,7 @@
                     <td>-0.0010</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.20</td>
+                    <td class="text-green">$0.25</td>
                 </tr>
             </tbody>
             </table>
@@ -1390,7 +1390,7 @@
 
         <script>
             (function() {
-                const REFRESH_INTERVAL_SECONDS = 300; // 300초 = 5분
+                const REFRESH_INTERVAL_SECONDS = 60; // 60초 = 1분
                 let timeLeft = REFRESH_INTERVAL_SECONDS;
                 const refreshButton = document.getElementById('refresh-button');
 
