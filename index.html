@@ -6,22 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dynamic Grid Bot 상태 대시보드</title>
         <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
             .container { max-width: 1200px; margin: auto; background-color: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
             h1, h2, h4 { color: #ffffff; border-bottom: 2px solid #333; padding-bottom: 10px; }
-            
-            /* --- CSS 변경: 헤더 정렬 및 버튼 스타일 추가 --- */
-            .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-            .header-right { display: flex; align-items: center; gap: 20px; text-align: right; }
-            .header-right span { font-size: 0.9em; color: #888; }
-            #refresh-button {
-                background-color: #007bff; color: white; border: none; padding: 8px 12px;
-                border-radius: 5px; font-size: 0.9em; cursor: pointer; transition: background-color 0.2s;
-                min-width: 120px;
-            }
-            #refresh-button:hover { background-color: #0056b3; }
-            /* --- CSS 변경 종료 --- */
-
+            .header { display: flex; justify-content: space-between; align-items: center; }
+            .header span { font-size: 0.9em; color: #888; }
             .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
             .status-grid div { background-color: #2a2a2a; padding: 20px; border-radius: 5px; text-align: center; }
             .status-grid span { display: block; margin-bottom: 10px; color: #aaa; }
@@ -30,7 +19,7 @@
             .text-red { color: #f44336 !important; }
             .styled-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
             .styled-table th, .styled-table td { padding: 12px 15px; border: 1px solid #333; text-align: center; }
-            .styled-table thead tr { background-color: #333; color: #ffffff; }
+            .styled-table thead tr { background-color: #007bff; color: #ffffff; }
             .styled-table tbody tr:nth-of-type(even) { background-color: #2a2a2a; }
             .styled-table tbody tr:hover { background-color: #3a3a3a; }
         </style>
@@ -39,17 +28,15 @@
         <div class="container">
             <div class="header">
                 <h1>📈 Dynamic Grid Bot 대시보드</h1>
-                <div class="header-right">
-                    <span>Last Updated: 2025-07-13 00:30:52</span>
-                    <button id="refresh-button">Updating...</button>
-                </div>
+                <span>Last Updated: 2025-07-13 00:35:20</span>
             </div>
+
             <h2>실시간 현황</h2>
             
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="text-green">$649.72</strong></div>
-                <div><span>USDT 잔고</span><strong>$649.72</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-green">$1.79</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-green">$648.85</strong></div>
+                <div><span>USDT 잔고</span><strong>$648.85</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-green">$2.42</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
@@ -58,10 +45,10 @@
                 <tr>
                     <td>SOLUSDT</td>
                     <td>LONG</td>
-                    <td>0.8500</td>
+                    <td>0.1600</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.06</td>
+                    <td class="text-green">$0.01</td>
                 </tr>
             
                 <tr>
@@ -70,16 +57,16 @@
                     <td>-0.3900</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.02</td>
+                    <td class="text-green">$0.09</td>
                 </tr>
             
                 <tr>
                     <td>ETHUSDT</td>
                     <td>LONG</td>
-                    <td>0.2030</td>
+                    <td>0.2150</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.30</td>
+                    <td class="text-red">$-1.96</td>
                 </tr>
             
                 <tr>
@@ -88,7 +75,7 @@
                     <td>-0.1840</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$1.81</td>
+                    <td class="text-green">$4.11</td>
                 </tr>
             
                 <tr>
@@ -97,7 +84,7 @@
                     <td>0.0020</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.21</td>
+                    <td class="text-red">$-0.15</td>
                 </tr>
             
                 <tr>
@@ -106,7 +93,7 @@
                     <td>-0.0010</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.13</td>
+                    <td class="text-green">$0.31</td>
                 </tr>
             </tbody>
             </table>
@@ -124,6 +111,398 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>2025-07-12 15:35:17</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,914.49</td>
+      <td>0.0144</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:35:17</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,914.49</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:35:08</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.70</td>
+      <td>0.0688</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:35:08</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.70</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:35:06</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,914.49</td>
+      <td>0.0143</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:35:05</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,914.49</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:57</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.76</td>
+      <td>0.0799</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:56</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.76</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:54</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,917.14</td>
+      <td>0.0133</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:54</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,917.14</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:44</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.70</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:32</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,916.42</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:23</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.72</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:21</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,917.19</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:12</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.60</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:10</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,915.86</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:34:01</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.57</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:59</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,916.31</td>
+      <td>0.0127</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:59</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,916.31</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:50</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.58</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:48</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,916.86</td>
+      <td>0.0134</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:47</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,916.86</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:39</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.50</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:37</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,917.46</td>
+      <td>0.0141</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:36</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,917.46</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:28</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.48</td>
+      <td>0.0762</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:27</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.48</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:25</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,918.01</td>
+      <td>0.0132</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:25</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,918.01</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:16</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.48</td>
+      <td>0.0947</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:16</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.48</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:14</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,917.83</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:05</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.44</td>
+      <td>0.1202</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:05</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.44</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:03</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$2,917.35</td>
+      <td>0.0132</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:33:02</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,917.35</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:53</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.52</td>
+      <td>0.1048</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:53</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.52</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:51</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,918.02</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:42</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.57</td>
+      <td>0.0905</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:42</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.57</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:40</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,917.93</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:31</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.57</td>
+      <td>0.1149</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:30</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.57</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:28</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,922.01</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:19</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.67</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:17</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$2,921.94</td>
+      <td>0.0070</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:32:07</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.69</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:55</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.76</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:44</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.88</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:23</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.95</td>
+      <td>0.1552</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:22</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.95</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:12</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$158.96</td>
+      <td>0.2066</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:12</td>
+      <td>ma-dev_long</td>
+      <td>long</td>
+      <td>$158.96</td>
+      <td>0.0400</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:31:00</td>
+      <td>ratio_adjust</td>
+      <td>long</td>
+      <td>$159.00</td>
+      <td>0.2561</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 15:30:58</td>
+      <td>ma-dev_short</td>
+      <td>short</td>
+      <td>$2,928.32</td>
+      <td>0.0070</td>
+    </tr>
     <tr>
       <td>2025-07-12 15:30:49</td>
       <td>ratio_adjust</td>
@@ -1443,38 +1822,6 @@
   </tbody>
 </table>
         </div>
-
-        <script>
-            (function() {
-                const REFRESH_INTERVAL_SECONDS = 60; // 60초 = 1분
-                let timeLeft = REFRESH_INTERVAL_SECONDS;
-                const refreshButton = document.getElementById('refresh-button');
-
-                if (refreshButton) {
-                    // 버튼 클릭 시 즉시 새로고침
-                    refreshButton.addEventListener('click', function() {
-                        refreshButton.textContent = 'Refreshing...';
-                        window.location.reload(true);
-                    });
-
-                    // 카운트다운 업데이트 함수
-                    function updateCountdown() {
-                        refreshButton.textContent = `Refresh in ` + timeLeft + `s`;
-                        timeLeft--;
-
-                        if (timeLeft < 0) {
-                            // 시간이 다 되면 새로고침
-                            window.location.reload(true);
-                        }
-                    }
-
-                    // 1초마다 카운트다운 실행
-                    setInterval(updateCountdown, 1000);
-                    // 페이지 로드 시 즉시 첫 업데이트 실행
-                    updateCountdown();
-                }
-            })();
-        </script>
-        </body>
+    </body>
     </html>
     
