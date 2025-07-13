@@ -27,12 +27,12 @@
         </style>
     </head><body>
         <div class="container">
-            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-14 00:59:51</span><button id="refresh-button">Updating...</button></div></div>
+            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-14 01:00:57</span><button id="refresh-button">Updating...</button></div></div>
             <h2>실시간 현황</h2>
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$643.22</strong></div>
-                <div><span>USDT 잔고</span><strong>$643.22</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-1.83</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$643.20</strong></div>
+                <div><span>USDT 잔고</span><strong>$643.20</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-1.80</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
@@ -44,7 +44,7 @@
                     <td>0.7200</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.02</td>
+                    <td class="text-green">$0.00</td>
                 </tr>
             
                 <tr>
@@ -53,7 +53,7 @@
                     <td>-0.4700</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.59</td>
+                    <td class="text-red">$-0.58</td>
                 </tr>
             
                 <tr>
@@ -62,7 +62,7 @@
                     <td>0.0840</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$1.26</td>
+                    <td class="text-green">$1.20</td>
                 </tr>
             
                 <tr>
@@ -71,7 +71,7 @@
                     <td>-0.0910</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-3.28</td>
+                    <td class="text-red">$-3.22</td>
                 </tr>
             
                 <tr>
@@ -80,7 +80,7 @@
                     <td>0.0040</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.76</td>
+                    <td class="text-green">$0.80</td>
                 </tr>
             </tbody>
             </table>
@@ -98,7 +98,7 @@
                 </div>
             </div>
             <div class="grid-container" style="margin-top: 20px;">
-                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-13</td><td class='text-red'>-0.59</td></tr><tr><td>2025-07-12</td><td class='text-green'>1.07</td></tr><tr><td>2025-07-11</td><td class=''>0.0</td></tr><tr><td>2025-07-10</td><td class=''>0.0</td></tr><tr><td>2025-07-09</td><td class='text-red'>-73.03</td></tr><tr><td>2025-07-08</td><td class='text-red'>-0.97</td></tr></tbody></table></div>
+                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-13</td><td class='text-red'>-0.64</td></tr><tr><td>2025-07-12</td><td class='text-green'>1.07</td></tr><tr><td>2025-07-11</td><td class=''>0.0</td></tr><tr><td>2025-07-10</td><td class=''>0.0</td></tr><tr><td>2025-07-09</td><td class='text-red'>-73.03</td></tr><tr><td>2025-07-08</td><td class='text-red'>-0.97</td></tr></tbody></table></div>
                 <div><h2>최근 거래 기록</h2><table border="1" class="dataframe styled-table history-table">
   <thead>
     <tr style="text-align: right;">
@@ -531,8 +531,8 @@
                     updateCountdown();
                 }
                 
-            const equityData = { labels: ["07-13 23:11", "07-13 23:16", "07-13 23:22", "07-13 23:27", "07-13 23:33", "07-13 23:38", "07-13 23:44", "07-13 23:49", "07-13 23:54", "07-14 00:00", "07-14 00:05", "07-14 00:11", "07-14 00:16", "07-14 00:22", "07-14 00:27", "07-14 00:33", "07-14 00:38", "07-14 00:44", "07-14 00:49", "07-14 00:55"], datasets: [{ label: 'Total Equity (USDT)', data: [642.2, 641.97, 640.88, 641.47, 641.61, 641.78, 641.85, 642.42, 642.99, 643.54, 643.36, 644.52, 644.37, 644.14, 644.03, 643.48, 642.94, 642.77, 643.07, 643.44], borderColor: 'rgb(75, 192, 192)', tension: 0.1, borderWidth: 2, pointRadius: 0 }] };
-            const pnlData = { labels: ["07-13 23:11", "07-13 23:16", "07-13 23:22", "07-13 23:27", "07-13 23:33", "07-13 23:38", "07-13 23:44", "07-13 23:49", "07-13 23:54", "07-14 00:00", "07-14 00:05", "07-14 00:11", "07-14 00:16", "07-14 00:22", "07-14 00:27", "07-14 00:33", "07-14 00:38", "07-14 00:44", "07-14 00:49", "07-14 00:55"], datasets: [{ label: 'Unrealized PNL (USDT)', data: [-3.15, -3.38, -4.46, -3.88, -3.73, -3.56, -3.5, -2.91, -2.09, -1.53, -1.72, -0.55, -0.7, -0.92, -1.03, -1.58, -2.11, -2.27, -1.97, -1.6], borderColor: 'rgb(255, 99, 132)', tension: 0.1, borderWidth: 2, pointRadius: 0 }] };
+            const equityData = { labels: ["07-13 23:11", "07-13 23:16", "07-13 23:22", "07-13 23:27", "07-13 23:33", "07-13 23:38", "07-13 23:44", "07-13 23:49", "07-13 23:54", "07-14 00:00", "07-14 00:05", "07-14 00:11", "07-14 00:16", "07-14 00:22", "07-14 00:27", "07-14 00:33", "07-14 00:38", "07-14 00:44", "07-14 00:49", "07-14 00:55", "07-14 01:00"], datasets: [{ label: 'Total Equity (USDT)', data: [642.2, 641.97, 640.88, 641.47, 641.61, 641.78, 641.85, 642.42, 642.99, 643.54, 643.36, 644.52, 644.37, 644.14, 644.03, 643.48, 642.94, 642.77, 643.07, 643.44, 643.21], borderColor: 'rgb(75, 192, 192)', tension: 0.1, borderWidth: 2, pointRadius: 0 }] };
+            const pnlData = { labels: ["07-13 23:11", "07-13 23:16", "07-13 23:22", "07-13 23:27", "07-13 23:33", "07-13 23:38", "07-13 23:44", "07-13 23:49", "07-13 23:54", "07-14 00:00", "07-14 00:05", "07-14 00:11", "07-14 00:16", "07-14 00:22", "07-14 00:27", "07-14 00:33", "07-14 00:38", "07-14 00:44", "07-14 00:49", "07-14 00:55", "07-14 01:00"], datasets: [{ label: 'Unrealized PNL (USDT)', data: [-3.15, -3.38, -4.46, -3.88, -3.73, -3.56, -3.5, -2.91, -2.09, -1.53, -1.72, -0.55, -0.7, -0.92, -1.03, -1.58, -2.11, -2.27, -1.97, -1.6, -1.78], borderColor: 'rgb(255, 99, 132)', tension: 0.1, borderWidth: 2, pointRadius: 0 }] };
         
                 const chartOptions = { scales: { x: { ticks: { color: 'grey' }, grid: { color: 'rgba(255,255,255,0.1)' } }, y: { ticks: { color: 'grey' }, grid: { color: 'rgba(255,255,255,0.1)' } } }, plugins: { legend: { labels: { color: 'white' } } } };
                 if (equityData.labels && equityData.labels.length > 0) new Chart(document.getElementById('equityChart'), { type: 'line', data: equityData, options: chartOptions });
