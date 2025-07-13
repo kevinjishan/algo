@@ -1,42 +1,38 @@
 
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dynamic Grid Bot 상태 대시보드</title>
+    <!DOCTYPE html><html lang="ko"><head>
+        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Grid Bot Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
-            body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
-            .container { max-width: 1200px; margin: auto; background-color: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-            h1, h2, h4 { color: #ffffff; border-bottom: 2px solid #333; padding-bottom: 10px; }
-            .header { display: flex; justify-content: space-between; align-items: center; }
-            .header span { font-size: 0.9em; color: #888; }
-            .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
-            .status-grid div { background-color: #2a2a2a; padding: 20px; border-radius: 5px; text-align: center; }
-            .status-grid span { display: block; margin-bottom: 10px; color: #aaa; }
-            .status-grid strong { font-size: 1.8em; color: #fff; }
-            .text-green { color: #4caf50 !important; }
-            .text-red { color: #f44336 !important; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #1a1a1a; color: #e0e0e0; margin: 0; padding: 20px; }
+            .container { max-width: 1400px; margin: auto; background-color: #2a2a2a; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+            h1, h2, h4 { color: #ffffff; border-bottom: 1px solid #444; padding-bottom: 10px; }
+            .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+            .header-right { display: flex; align-items: center; gap: 20px; text-align: right; }
+            .header-right span { font-size: 0.9em; color: #888; }
+            #refresh-button { background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-size: 0.9em; cursor: pointer; transition: background-color 0.2s; min-width: 120px; }
+            #refresh-button:hover { background-color: #0056b3; }
+            .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+            .status-grid, .pnl-summary { background-color: #333; padding: 20px; border-radius: 8px; }
+            .status-grid strong, .pnl-summary strong { font-size: 1.8em; }
+            .status-grid span, .pnl-summary span { display: block; margin-bottom: 10px; color: #aaa; }
+            .text-green { color: #28a745 !important; }
+            .text-red { color: #dc3545 !important; }
             .styled-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            .styled-table th, .styled-table td { padding: 12px 15px; border: 1px solid #333; text-align: center; }
-            .styled-table thead tr { background-color: #007bff; color: #ffffff; }
-            .styled-table tbody tr:nth-of-type(even) { background-color: #2a2a2a; }
-            .styled-table tbody tr:hover { background-color: #3a3a3a; }
+            .styled-table th, .styled-table td { padding: 12px 15px; border-bottom: 1px solid #444; text-align: left; }
+            .styled-table thead tr { background-color: #444; color: #ffffff; text-align: left; }
+            .styled-table tbody tr:nth-of-type(even) { background-color: #333; }
+            .styled-table tbody tr:hover { background-color: #4a4a4a; }
+            .chart-section { margin-top: 30px; }
         </style>
-    </head>
-    <body>
+    </head><body>
         <div class="container">
-            <div class="header">
-                <h1>📈 Dynamic Grid Bot 대시보드</h1>
-                <span>Last Updated: 2025-07-13 23:24:37</span>
-            </div>
-
+            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-13 23:33:51</span><button id="refresh-button">Updating...</button></div></div>
             <h2>실시간 현황</h2>
-            
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$641.39</strong></div>
-                <div><span>USDT 잔고</span><strong>$641.39</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-3.96</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$641.55</strong></div>
+                <div><span>USDT 잔고</span><strong>$641.55</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-3.80</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
@@ -48,7 +44,7 @@
                     <td>0.2800</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.82</td>
+                    <td class="text-green">$0.70</td>
                 </tr>
             
                 <tr>
@@ -57,7 +53,7 @@
                     <td>-0.4700</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-1.54</td>
+                    <td class="text-red">$-1.33</td>
                 </tr>
             
                 <tr>
@@ -66,7 +62,7 @@
                     <td>0.0210</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.96</td>
+                    <td class="text-green">$0.93</td>
                 </tr>
             
                 <tr>
@@ -75,3520 +71,464 @@
                     <td>-0.0700</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-4.20</td>
+                    <td class="text-red">$-4.10</td>
                 </tr>
             </tbody>
             </table>
         
-
-            <h2>거래 기록</h2>
-            <table border="1" class="dataframe styled-table history-table">
+            <div class="chart-section">
+                <h2>성과 요약</h2>
+                <div class="grid-container">
+                    <div class="pnl-summary"><span>총 실현 수익</span><strong class="text-green">$53.05</strong></div>
+                    <div class="pnl-summary"><span>총 실현 손실</span><strong class="text-red">$-125.38</strong></div>
+                    <div class="pnl-summary"><span>총 순손익</span><strong class="text-red">$-72.32</strong></div>
+                </div>
+                <div class="grid-container" style="margin-top: 20px;">
+                    <div><h4>자산(Equity) 변화</h4><canvas id="equityChart"></canvas></div>
+                    <div><h4>미실현 손익(PNL) 변화</h4><canvas id="pnlChart"></canvas></div>
+                </div>
+            </div>
+            <div class="grid-container" style="margin-top: 20px;">
+                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-13</td><td class='text-red'>-0.59</td></tr><tr><td>2025-07-12</td><td class='text-green'>1.07</td></tr><tr><td>2025-07-11</td><td class=''>0.0</td></tr><tr><td>2025-07-10</td><td class=''>0.0</td></tr><tr><td>2025-07-09</td><td class='text-red'>-73.03</td></tr><tr><td>2025-07-08</td><td class='text-green'>0.35</td></tr></tbody></table></div>
+                <div><h2>최근 거래 기록</h2><table border="1" class="dataframe styled-table history-table">
   <thead>
     <tr style="text-align: right;">
       <th>시간</th>
-      <th>작업</th>
-      <th>포지션</th>
+      <th>종목</th>
+      <th>방향</th>
       <th>가격</th>
       <th>수량</th>
+      <th>수수료(USDT)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>2025-07-13 14:18:57</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$3,000.77</td>
+      <td>2025-07-13 14:19:05</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>3000.7700</td>
       <td>0.0070</td>
+      <td>0.0042</td>
     </tr>
     <tr>
-      <td>2025-07-13 13:47:30</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$162.85</td>
+      <td>2025-07-13 13:47:37</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>162.8500</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 13:35:25</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,987.48</td>
+      <td>2025-07-13 13:46:49</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2987.4800</td>
       <td>0.0070</td>
+      <td>0.0042</td>
     </tr>
     <tr>
-      <td>2025-07-13 13:17:54</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.92</td>
+      <td>2025-07-13 13:16:14</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.9900</td>
       <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 13:15:42</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.99</td>
-      <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
       <td>2025-07-13 13:14:35</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,974.47</td>
+      <td>ETH/USDT:USDT</td>
+      <td>buy</td>
+      <td>2974.2700</td>
       <td>0.0070</td>
+      <td>0.0104</td>
     </tr>
     <tr>
-      <td>2025-07-13 13:13:31</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.85</td>
+      <td>2025-07-13 13:13:27</td>
+      <td>ETH/USDT:USDT</td>
+      <td>buy</td>
+      <td>2972.4300</td>
+      <td>0.0070</td>
+      <td>0.0104</td>
+    </tr>
+    <tr>
+      <td>2025-07-13 13:12:28</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>162.2000</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 13:13:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,972.67</td>
-      <td>0.0070</td>
+      <td>2025-07-13 13:05:10</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>162.4200</td>
+      <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 13:01:16</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,988.63</td>
+      <td>2025-07-13 13:02:09</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2988.6300</td>
       <td>0.0070</td>
+      <td>0.0042</td>
     </tr>
     <tr>
       <td>2025-07-13 12:53:35</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$162.74</td>
-      <td>0.0459</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 12:52:29</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$162.58</td>
-      <td>0.0517</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 12:51:23</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$162.42</td>
-      <td>0.0454</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 12:50:17</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$162.20</td>
-      <td>0.0460</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 12:21:50</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$162.15</td>
-      <td>0.0401</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 12:07:37</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$161.86</td>
-      <td>0.0406</td>
-    </tr>
-    <tr>
-      <td>2025-07-13 11:42:28</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$161.98</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>162.7100</td>
       <td>0.0400</td>
+      <td>0.0033</td>
+    </tr>
+    <tr>
+      <td>2025-07-13 12:52:48</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>162.5800</td>
+      <td>0.0500</td>
+      <td>0.0016</td>
+    </tr>
+    <tr>
+      <td>2025-07-13 12:21:49</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>162.1500</td>
+      <td>0.0400</td>
+      <td>0.0032</td>
+    </tr>
+    <tr>
+      <td>2025-07-13 12:08:02</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.8600</td>
+      <td>0.0400</td>
+      <td>0.0013</td>
+    </tr>
+    <tr>
+      <td>2025-07-13 11:42:27</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.9400</td>
+      <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
       <td>2025-07-13 11:06:25</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$162.33</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>162.3500</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 11:05:19</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$162.28</td>
+      <td>2025-07-13 11:05:18</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>162.2900</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 09:03:53</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$162.37</td>
+      <td>2025-07-13 09:04:53</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>162.3700</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
       <td>2025-07-13 09:02:47</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$162.39</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>162.3900</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 09:01:41</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$162.34</td>
+      <td>2025-07-13 09:01:40</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>162.3400</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
       <td>2025-07-13 08:49:39</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.64</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.6400</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 08:48:33</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.65</td>
+      <td>2025-07-13 08:48:32</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.6500</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 05:52:25</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.32</td>
+      <td>2025-07-13 05:59:34</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.3200</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 05:51:19</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$161.34</td>
+      <td>2025-07-13 05:51:22</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>161.3400</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 04:52:17</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$162.03</td>
-      <td>0.0402</td>
+      <td>2025-07-13 04:52:15</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>162.0300</td>
+      <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 02:56:25</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$161.60</td>
+      <td>2025-07-13 02:57:15</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>161.6000</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 02:55:20</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$161.49</td>
+      <td>2025-07-13 02:55:18</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>161.5000</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-13 02:46:34</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$161.34</td>
+      <td>2025-07-13 02:54:17</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>161.3400</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-13 00:22:32</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$160.92</td>
+      <td>2025-07-13 00:22:31</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>160.9200</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
       <td>2025-07-12 22:20:05</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.67</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>159.6600</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-12 22:18:59</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.57</td>
+      <td>2025-07-12 22:19:05</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>159.5700</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-12 22:18:57</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,925.04</td>
+      <td>2025-07-12 22:18:56</td>
+      <td>ETH/USDT:USDT</td>
+      <td>buy</td>
+      <td>2924.2400</td>
       <td>0.0070</td>
+      <td>0.0102</td>
     </tr>
     <tr>
-      <td>2025-07-12 22:16:46</td>
-      <td>ratio_adjust_close_short</td>
-      <td>short</td>
-      <td>$160.04</td>
-      <td>0.0401</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 21:45:01</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$160.32</td>
+      <td>2025-07-12 22:16:45</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>160.0300</td>
       <td>0.0400</td>
+      <td>0.0032</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 21:45:00</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>160.3200</td>
+      <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
       <td>2025-07-12 17:22:43</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$159.80</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>159.8200</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-12 17:21:37</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$159.79</td>
+      <td>2025-07-12 17:21:38</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>159.7900</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:19:18</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$159.04</td>
+      <td>2025-07-12 16:19:20</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>159.0400</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
       <td>2025-07-12 16:14:51</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.91</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.9300</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:13:45</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.93</td>
+      <td>2025-07-12 16:13:44</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.9300</td>
       <td>0.0400</td>
+      <td>0.0032</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 16:12:42</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2924.5500</td>
+      <td>0.0070</td>
+      <td>0.0041</td>
     </tr>
     <tr>
       <td>2025-07-12 16:12:39</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.83</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.8500</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
       <td>2025-07-12 16:12:37</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,923.35</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2923.9000</td>
       <td>0.0070</td>
+      <td>0.0102</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:11:33</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.73</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:11:31</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,923.09</td>
+      <td>2025-07-12 16:11:53</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2923.0900</td>
       <td>0.0070</td>
+      <td>0.0041</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:10:27</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.81</td>
+      <td>2025-07-12 16:11:47</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.8100</td>
       <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:10:25</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,924.55</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:09:21</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.65</td>
+      <td>2025-07-12 16:11:35</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.7300</td>
       <td>0.0400</td>
+      <td>0.0013</td>
+    </tr>
+    <tr>
+      <td>2025-07-12 16:09:23</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.6500</td>
+      <td>0.0400</td>
+      <td>0.0013</td>
     </tr>
     <tr>
       <td>2025-07-12 16:09:19</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,921.83</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2921.8300</td>
       <td>0.0070</td>
+      <td>0.0041</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:08:14</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.62</td>
+      <td>2025-07-12 16:08:13</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>158.6200</td>
       <td>0.0400</td>
+      <td>0.0032</td>
     </tr>
     <tr>
       <td>2025-07-12 16:08:11</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,920.52</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2920.9900</td>
       <td>0.0070</td>
+      <td>0.0102</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:04:55</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,918.60</td>
+      <td>2025-07-12 16:05:02</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2918.6000</td>
       <td>0.0070</td>
+      <td>0.0041</td>
     </tr>
     <tr>
-      <td>2025-07-12 16:03:49</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,918.86</td>
+      <td>2025-07-12 16:03:54</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>2918.8600</td>
       <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:03:28</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$117,123.00</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:03:21</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$158.32</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:03:19</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,916.00</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:03:17</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$117,109.90</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 16:03:08</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,913.49</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:58:39</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$117,100.30</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:58:29</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,913.00</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:58:08</td>
-      <td>risk_reduction_close</td>
-      <td>short</td>
-      <td>$2,913.28</td>
-      <td>0.0233</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:58:08</td>
-      <td>risk_reduction_close</td>
-      <td>long</td>
-      <td>$2,913.17</td>
-      <td>0.0204</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:58:06</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,912.50</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:54</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,912.51</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:44</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,911.50</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:31</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,911.00</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:20</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,911.32</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:11</td>
-      <td>risk_reduction_close</td>
-      <td>short</td>
-      <td>$2,911.30</td>
-      <td>0.0212</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:10</td>
-      <td>risk_reduction_close</td>
-      <td>long</td>
-      <td>$2,911.29</td>
-      <td>0.0226</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:57:07</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,911.00</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:56:33</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,910.35</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:55:53</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.01</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:55:51</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,910.35</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:55:40</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,910.78</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:55:29</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,911.60</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:55:19</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$158.06</td>
-      <td>0.0618</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:55:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.99</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:57</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.94</td>
-      <td>0.0643</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:56</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.94</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:46</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.01</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:35</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$158.01</td>
-      <td>0.0545</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:35</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.01</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:33</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$2,905.69</td>
-      <td>0.0139</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:32</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.69</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:23</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.85</td>
-      <td>0.0585</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:22</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.85</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:20</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.44</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:11</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.89</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:09</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.50</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:00</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.81</td>
-      <td>0.0812</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:54:00</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.81</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:58</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.80</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:49</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.89</td>
-      <td>0.0660</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:48</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.89</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:46</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,906.02</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:36</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.84</td>
-      <td>0.0769</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:36</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.84</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:34</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.50</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:32</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$116,916.40</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:25</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.92</td>
-      <td>0.0942</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:25</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.92</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:21</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$116,930.10</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:13</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$157.90</td>
-      <td>0.1236</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:13</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.90</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:11</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.55</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:01</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$158.12</td>
-      <td>0.0424</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:53:00</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.12</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:52:50</td>
-      <td>ratio_adjust_close_long</td>
-      <td>long</td>
-      <td>$158.19</td>
-      <td>0.0426</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:52:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.06</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:51:54</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.14</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:51:20</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.18</td>
-      <td>0.0437</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:51:07</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.19</td>
-      <td>0.0436</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:55</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.15</td>
-      <td>0.0440</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:55</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.15</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:44</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.16</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:13</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.12</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:11</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,910.30</td>
-      <td>0.0129</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:02</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.05</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:50:00</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,908.22</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:51</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.02</td>
-      <td>0.0784</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:51</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.02</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:49</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,907.42</td>
-      <td>0.0131</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:48</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,907.42</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,907.00</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:26</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.49</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.96</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:15</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.47</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:06</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.98</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:04</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,905.20</td>
-      <td>0.0124</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:49:03</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.20</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:53</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,906.27</td>
-      <td>0.0128</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:53</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,906.27</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:44</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.08</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:42</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.75</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:31</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,906.01</td>
-      <td>0.0125</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:31</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,906.01</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:22</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$157.97</td>
-      <td>0.0896</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:20</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,903.01</td>
-      <td>0.0135</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:20</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,903.01</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:48:09</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,908.40</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:47:58</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,907.82</td>
-      <td>0.0130</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:47:57</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,907.82</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:47:45</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,907.78</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:47:31</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,909.81</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:47:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,909.07</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:47:06</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,907.16</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:56</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$157.83</td>
-      <td>0.0539</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:52</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,905.86</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:42</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.00</td>
-      <td>0.0516</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:40</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,908.42</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:32</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.05</td>
-      <td>0.0420</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:31</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.05</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,910.01</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:20</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.06</td>
-      <td>0.0420</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:19</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.06</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,909.92</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:09</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.07</td>
-      <td>0.0420</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:08</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.07</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:46:06</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,910.23</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:57</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.22</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:55</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,910.68</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:36</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.45</td>
-      <td>0.0408</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:25</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0411</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:25</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:23</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,911.69</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:13</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.04</td>
-      <td>0.0428</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:13</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.04</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:02</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.01</td>
-      <td>0.0484</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:45:02</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.01</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:51</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$157.99</td>
-      <td>0.0484</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:51</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.99</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:41</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$157.95</td>
-      <td>0.0558</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:40</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.95</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:30</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$157.99</td>
-      <td>0.0498</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:30</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.99</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:19</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.02</td>
-      <td>0.0511</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:19</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.02</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:09</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$157.77</td>
-      <td>0.0499</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:44:08</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$157.77</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:57</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.19</td>
-      <td>0.0446</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:57</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.19</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:46</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.19</td>
-      <td>0.0446</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:45</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.19</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:34</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.25</td>
-      <td>0.0442</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:34</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.25</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:23</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.28</td>
-      <td>0.0443</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:22</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.28</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:12</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.30</td>
-      <td>0.0442</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:12</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.30</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:43:01</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.33</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:51</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.26</td>
-      <td>0.0453</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:50</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.26</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:40</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.14</td>
-      <td>0.0530</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:40</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.14</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:28</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.26</td>
-      <td>0.0467</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.26</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:17</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0406</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:06</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.21</td>
-      <td>0.0409</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:42:06</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.21</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:55</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.23</td>
-      <td>0.0468</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:55</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.23</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:44</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.29</td>
-      <td>0.0406</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:43</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.29</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:32</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.25</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:21</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.15</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:41:09</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.29</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:40:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.54</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:40:26</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.50</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:40:15</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.45</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:38:11</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.28</td>
-      <td>0.0447</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:38:00</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:50</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.36</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:39</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.26</td>
-      <td>0.0506</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:28</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.36</td>
-      <td>0.0899</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.36</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:24</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$117,079.60</td>
-      <td>0.0011</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:17</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.40</td>
-      <td>0.0748</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.40</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:15</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,905.90</td>
-      <td>0.0114</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:13</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$117,080.30</td>
-      <td>0.0011</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:06</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0892</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:05</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.39</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:03</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,908.45</td>
-      <td>0.0110</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:37:01</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$117,099.60</td>
-      <td>0.0011</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:53</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.43</td>
-      <td>0.1162</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:52</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.43</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:50</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,907.22</td>
-      <td>0.0126</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:48</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$117,130.10</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:41</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.51</td>
-      <td>0.1007</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:41</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.51</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:39</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,910.58</td>
-      <td>0.0122</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$117,150.20</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:30</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.50</td>
-      <td>0.1295</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:30</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.50</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:28</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,910.15</td>
-      <td>0.0140</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:26</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$117,170.20</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:18</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.1153</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:14</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,910.61</td>
-      <td>0.0162</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:06</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.63</td>
-      <td>0.0973</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:05</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.63</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:36:03</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,912.72</td>
-      <td>0.0176</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:54</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.73</td>
-      <td>0.0823</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:53</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.73</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:51</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,914.39</td>
-      <td>0.0134</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:50</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,914.39</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:42</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.77</td>
-      <td>0.0680</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:41</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.77</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:39</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,915.59</td>
-      <td>0.0143</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:39</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,915.59</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:30</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.79</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:28</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,916.53</td>
-      <td>0.0135</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,916.53</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:19</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.71</td>
-      <td>0.0617</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:19</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.71</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:17</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,914.49</td>
-      <td>0.0144</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,914.49</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:08</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.70</td>
-      <td>0.0688</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:08</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.70</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:06</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,914.49</td>
-      <td>0.0143</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:35:05</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,914.49</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:57</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.76</td>
-      <td>0.0799</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:56</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.76</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:54</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,917.14</td>
-      <td>0.0133</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:54</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,917.14</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:44</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.70</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:32</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,916.42</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:23</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.72</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:21</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,917.19</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:12</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.60</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:10</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,915.86</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:34:01</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:59</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,916.31</td>
-      <td>0.0127</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:59</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,916.31</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:50</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.58</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:48</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,916.86</td>
-      <td>0.0134</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:47</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,916.86</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:39</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.50</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:37</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,917.46</td>
-      <td>0.0141</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:36</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,917.46</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:28</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.48</td>
-      <td>0.0762</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:27</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.48</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:25</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,918.01</td>
-      <td>0.0132</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:25</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,918.01</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:16</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.48</td>
-      <td>0.0947</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:16</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.48</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:14</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,917.83</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:05</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.44</td>
-      <td>0.1202</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:05</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.44</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:03</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,917.35</td>
-      <td>0.0132</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:33:02</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,917.35</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:53</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.52</td>
-      <td>0.1048</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:53</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.52</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:51</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,918.02</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:42</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.0905</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:42</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:40</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,917.93</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:31</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.1149</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:30</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.57</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,922.01</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:19</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.67</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,921.94</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:32:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.69</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:55</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.76</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:44</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.88</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:23</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.95</td>
-      <td>0.1552</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:22</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.95</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:12</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.96</td>
-      <td>0.2066</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:12</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.96</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:31:00</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$159.00</td>
-      <td>0.2561</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:30:58</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,928.32</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:30:49</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$159.03</td>
-      <td>0.3980</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:30:46</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,928.10</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:29:18</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$158.96</td>
-      <td>0.6014</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:29:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.96</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:29:15</td>
-      <td>ratio_adjust</td>
-      <td>long</td>
-      <td>$2,924.71</td>
-      <td>0.0126</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:29:12</td>
-      <td>risk_reduction_close</td>
-      <td>short</td>
-      <td>$2,924.37</td>
-      <td>0.0196</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:29:11</td>
-      <td>risk_reduction_close</td>
-      <td>long</td>
-      <td>$2,924.50</td>
-      <td>0.0238</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 15:29:10</td>
-      <td>risk_reduction_close</td>
-      <td>long</td>
-      <td>$158.92</td>
-      <td>0.2000</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:29:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,928.02</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:28:48</td>
-      <td>dynamic_ratio_short_(50.00%)</td>
-      <td>short</td>
-      <td>$158.96</td>
-      <td>0.1118</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:28:47</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.96</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:28:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,928.25</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:28:22</td>
-      <td>dynamic_ratio_short_(50.00%)</td>
-      <td>short</td>
-      <td>$158.95</td>
-      <td>0.1049</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:28:18</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.95</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:28:10</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,929.25</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:27:53</td>
-      <td>dynamic_ratio_short_(50.00%)</td>
-      <td>short</td>
-      <td>$159.05</td>
-      <td>0.0984</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:27:44</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.05</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:27:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,928.90</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:27:04</td>
-      <td>dynamic_ratio_short_(50.00%)</td>
-      <td>short</td>
-      <td>$158.98</td>
-      <td>0.0919</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:27:04</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.98</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:26:59</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,929.10</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:26:49</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.13</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:26:46</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.24</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:26:35</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.10</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:25:43</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.07</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:25:36</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.73</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:25:24</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.11</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:25:09</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.12</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:25:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.94</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:24:55</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.13</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:24:42</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.16</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:24:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.14</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:24:16</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.14</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:24:03</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.07</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:50</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.88</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:48</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,928.40</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.85</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:34</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,928.41</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:24</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.86</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:21</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,929.03</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:11</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.88</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:09</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.08</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:23:06</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$117,284.70</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:58</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.87</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:56</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,929.08</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:45</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.94</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:43</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,929.75</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:32</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.03</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:21</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.49</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:10</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.10</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:22:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.81</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:55</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.04</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:51</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.54</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:41</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.03</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:39</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.51</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.06</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:26</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.30</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:15</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.95</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:12</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.31</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:21:01</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.00</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:57</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.20</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:46</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.90</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:43</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.73</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:28</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$158.90</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:20</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,928.77</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:16</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$117,284.70</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.04</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:20:04</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.43</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:54</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.04</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:51</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,930.48</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:40</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.23</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:35</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,932.09</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:23</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.28</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,932.56</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:04</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.23</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:19:02</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.20</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:18:51</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.26</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:18:49</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.51</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:18:33</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.20</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:18:30</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.35</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:18:20</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.26</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:18:18</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.36</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:17:56</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.97</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:17:17</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.17</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:17:14</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.33</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:17:04</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.25</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:17:01</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,931.30</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:16:49</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.36</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:10:47</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.30</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:10:21</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.35</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:10:09</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.33</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:09:37</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.36</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:07:36</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.28</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:07:32</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$117,524.20</td>
-      <td>0.0010</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:07:12</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,936.97</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:07:00</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.17</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:06:47</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.40</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:06:35</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.28</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:05:42</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.05</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:05:14</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.37</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:05:01</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.38</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:04:34</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,936.29</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:04:09</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,935.91</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:03:45</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.40</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:03:33</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.42</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:02:20</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.60</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:02:00</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.10</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:01:50</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.47</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:01:47</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,936.84</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:01:29</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.88</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:01:16</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.58</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:01:03</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.67</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:00:51</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,939.84</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:00:38</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.86</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:00:22</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,939.05</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 13:00:05</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,942.07</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:59:43</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,940.81</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:59:29</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,940.81</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:59:17</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,940.65</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:59:05</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,941.67</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:58:49</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,939.85</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:58:37</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,939.43</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:58:25</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.80</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:58:12</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.70</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:58:03</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$159.54</td>
-      <td>0.0400</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:57:59</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,937.34</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-12 12:57:47</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,938.81</td>
-      <td>0.0070</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:52:23</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.89</td>
-      <td>0.0411</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:52:20</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.18</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:52:12</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.93</td>
-      <td>0.0422</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:52:10</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.35</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:52:00</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.93</td>
-      <td>0.0434</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:49</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.91</td>
-      <td>0.0446</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:46</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.06</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:44</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$108,973.90</td>
-      <td>0.0050</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:38</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.91</td>
-      <td>0.0458</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:34</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$108,968.40</td>
-      <td>0.0050</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:27</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.95</td>
-      <td>0.0470</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:25</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.31</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:23</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$108,989.00</td>
-      <td>0.0050</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:16</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.97</td>
-      <td>0.0481</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:14</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,654.05</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:12</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$108,995.00</td>
-      <td>0.0050</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:05</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.94</td>
-      <td>0.0493</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:51:02</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,654.07</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:54</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.95</td>
-      <td>0.0497</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:52</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.99</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:44</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.90</td>
-      <td>0.0490</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:42</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.47</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:33</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.89</td>
-      <td>0.0482</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:31</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.08</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:23</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.89</td>
-      <td>0.0474</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:21</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.45</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:13</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.85</td>
-      <td>0.0466</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:50:03</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.83</td>
-      <td>0.0459</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:52</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.84</td>
-      <td>0.0450</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:42</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.89</td>
-      <td>0.0442</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:32</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.96</td>
-      <td>0.0433</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:22</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$153.97</td>
-      <td>0.0425</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:20</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.13</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:11</td>
-      <td>dynamic_ratio_long_(50.00%)</td>
-      <td>long</td>
-      <td>$154.01</td>
-      <td>0.0417</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:08</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.81</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:49:00</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.06</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:58</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,654.00</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:50</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.06</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:48</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,654.00</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:39</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.06</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:37</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.67</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:29</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.03</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:27</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.08</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:17</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.36</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:48:07</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.02</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:57</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.02</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:48</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.04</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:46</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.99</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:38</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.04</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:36</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.15</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:26</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.33</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:18</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.05</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:16</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,653.65</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:08</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.06</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:47:06</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$2,652.99</td>
-      <td>0.0094</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:46:57</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.02</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:46:37</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.00</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:45:48</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.02</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:45:39</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$154.02</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:45:29</td>
-      <td>ma-dev_short</td>
-      <td>short</td>
-      <td>$153.99</td>
-      <td>0.1623</td>
-    </tr>
-    <tr>
-      <td>2025-07-09 15:45:07</td>
-      <td>ma-dev_long</td>
-      <td>long</td>
-      <td>$2,647.95</td>
-      <td>0.0094</td>
+      <td>0.0041</td>
     </tr>
   </tbody>
-</table>
+</table></div>
+            </div>
         </div>
-    </body>
-    </html>
+        <script>
+            (function() {
+                const REFRESH_INTERVAL_SECONDS = 300;
+                let timeLeft = REFRESH_INTERVAL_SECONDS;
+                const refreshButton = document.getElementById('refresh-button');
+                if (refreshButton) {
+                    refreshButton.addEventListener('click', () => window.location.reload(true));
+                    function updateCountdown() {
+                        refreshButton.textContent = `Refresh in ` + timeLeft + `s`;
+                        timeLeft--;
+                        if (timeLeft < 0) window.location.reload(true);
+                    }
+                    setInterval(updateCountdown, 1000);
+                    updateCountdown();
+                }
+                
+            const equityData = { labels: ["07-13 14:11", "07-13 14:16", "07-13 14:22", "07-13 14:27", "07-13 14:33"], datasets: [{ label: 'Total Equity (USDT)', data: [642.2, 641.97, 640.88, 641.47, 641.61], borderColor: 'rgb(75, 192, 192)', tension: 0.1, borderWidth: 2, pointRadius: 0 }] };
+            const pnlData = { labels: ["07-13 14:11", "07-13 14:16", "07-13 14:22", "07-13 14:27", "07-13 14:33"], datasets: [{ label: 'Unrealized PNL (USDT)', data: [-3.15, -3.38, -4.46, -3.88, -3.73], borderColor: 'rgb(255, 99, 132)', tension: 0.1, borderWidth: 2, pointRadius: 0 }] };
+        
+                const chartOptions = { scales: { x: { ticks: { color: 'grey' }, grid: { color: 'rgba(255,255,255,0.1)' } }, y: { ticks: { color: 'grey' }, grid: { color: 'rgba(255,255,255,0.1)' } } }, plugins: { legend: { labels: { color: 'white' } } } };
+                if (equityData.labels && equityData.labels.length > 0) new Chart(document.getElementById('equityChart'), { type: 'line', data: equityData, options: chartOptions });
+                if (pnlData.labels && pnlData.labels.length > 0) new Chart(document.getElementById('pnlChart'), { type: 'line', data: pnlData, options: chartOptions });
+            })();
+        </script>
+    </body></html>
     
