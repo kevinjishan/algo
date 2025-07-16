@@ -27,12 +27,12 @@
         </style>
     </head><body>
         <div class="container">
-            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-17 07:39:04</span><button id="refresh-button">Updating...</button></div></div>
+            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-17 07:40:10</span><button id="refresh-button">Updating...</button></div></div>
             <h2>실시간 현황</h2>
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$611.58</strong></div>
-                <div><span>USDT 잔고</span><strong>$611.58</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-2.86</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$611.47</strong></div>
+                <div><span>USDT 잔고</span><strong>$611.47</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-2.93</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
@@ -41,10 +41,10 @@
                 <tr>
                     <td>SOLUSDT</td>
                     <td>LONG</td>
-                    <td>0.4300</td>
+                    <td>0.4200</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.71</td>
+                    <td class="text-green">$0.63</td>
                 </tr>
             
                 <tr>
@@ -59,10 +59,10 @@
                 <tr>
                     <td>ETHUSDT</td>
                     <td>LONG</td>
-                    <td>0.0930</td>
+                    <td>0.0900</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.82</td>
+                    <td class="text-red">$-0.87</td>
                 </tr>
             
                 <tr>
@@ -71,7 +71,7 @@
                     <td>-0.0360</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.80</td>
+                    <td class="text-green">$0.85</td>
                 </tr>
             
                 <tr>
@@ -98,8 +98,8 @@
                 <h2>성과 요약</h2>
                 <div class="grid-container">
                     <div class="pnl-summary"><span>총 실현 수익</span><strong class="text-green">$30.89</strong></div>
-                    <div class="pnl-summary"><span>총 실현 손실</span><strong class="text-red">$-27.27</strong></div>
-                    <div class="pnl-summary"><span>총 순손익</span><strong class="text-green">$3.62</strong></div>
+                    <div class="pnl-summary"><span>총 실현 손실</span><strong class="text-red">$-27.31</strong></div>
+                    <div class="pnl-summary"><span>총 순손익</span><strong class="text-green">$3.58</strong></div>
                 </div>
                 <div class="grid-container" style="margin-top: 20px;">
                     <div><h4>자산(Equity) 변화</h4><canvas id="equityChart"></canvas></div>
@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="grid-container" style="margin-top: 20px;">
-                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-16</td><td class='text-red'>-1.81</td></tr><tr><td>2025-07-15</td><td class='text-green'>5.57</td></tr></tbody></table></div>
+                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-16</td><td class='text-red'>-1.88</td></tr><tr><td>2025-07-15</td><td class='text-green'>5.61</td></tr></tbody></table></div>
                 <div><h2>최근 거래 기록</h2><table border="1" class="dataframe styled-table history-table">
   <thead>
     <tr style="text-align: right;">
@@ -120,6 +120,38 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>2025-07-16 22:39:11</td>
+      <td>SOL/USDT:USDT</td>
+      <td>buy</td>
+      <td>174.7000</td>
+      <td>0.0300</td>
+      <td>0.0026</td>
+    </tr>
+    <tr>
+      <td>2025-07-16 22:39:09</td>
+      <td>ETH/USDT:USDT</td>
+      <td>buy</td>
+      <td>3364.4200</td>
+      <td>0.0060</td>
+      <td>0.0101</td>
+    </tr>
+    <tr>
+      <td>2025-07-16 22:39:06</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>3364.9700</td>
+      <td>0.0090</td>
+      <td>0.0151</td>
+    </tr>
+    <tr>
+      <td>2025-07-16 22:39:04</td>
+      <td>SOL/USDT:USDT</td>
+      <td>sell</td>
+      <td>174.7000</td>
+      <td>0.0400</td>
+      <td>0.0035</td>
+    </tr>
     <tr>
       <td>2025-07-16 22:38:05</td>
       <td>ETH/USDT:USDT</td>
@@ -141,16 +173,16 @@
       <td>SOL/USDT:USDT</td>
       <td>buy</td>
       <td>174.9400</td>
-      <td>0.0400</td>
-      <td>0.0014</td>
+      <td>0.0300</td>
+      <td>0.0010</td>
     </tr>
     <tr>
       <td>2025-07-16 22:34:46</td>
       <td>SOL/USDT:USDT</td>
       <td>buy</td>
       <td>174.9400</td>
-      <td>0.0300</td>
-      <td>0.0010</td>
+      <td>0.0400</td>
+      <td>0.0014</td>
     </tr>
     <tr>
       <td>2025-07-16 22:34:37</td>
@@ -485,38 +517,6 @@
       <td>ETH/USDT:USDT</td>
       <td>sell</td>
       <td>3387.1100</td>
-      <td>0.0100</td>
-      <td>0.0169</td>
-    </tr>
-    <tr>
-      <td>2025-07-16 21:12:52</td>
-      <td>SOL/USDT:USDT</td>
-      <td>sell</td>
-      <td>175.6100</td>
-      <td>0.0300</td>
-      <td>0.0026</td>
-    </tr>
-    <tr>
-      <td>2025-07-16 21:12:49</td>
-      <td>ETH/USDT:USDT</td>
-      <td>sell</td>
-      <td>3388.6700</td>
-      <td>0.0060</td>
-      <td>0.0102</td>
-    </tr>
-    <tr>
-      <td>2025-07-16 21:03:56</td>
-      <td>ETH/USDT:USDT</td>
-      <td>buy</td>
-      <td>3372.2500</td>
-      <td>0.0060</td>
-      <td>0.0101</td>
-    </tr>
-    <tr>
-      <td>2025-07-16 21:03:53</td>
-      <td>ETH/USDT:USDT</td>
-      <td>sell</td>
-      <td>3372.2500</td>
       <td>0.0100</td>
       <td>0.0169</td>
     </tr>
