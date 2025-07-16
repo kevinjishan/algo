@@ -27,8 +27,73 @@
         </style>
     </head><body>
         <div class="container">
-            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-16 17:23:45</span><button id="refresh-button">Updating...</button></div></div>
-            <h2>실시간 현황</h2><h3>실시간 현황 데이터 조회 실패</h3>
+            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-16 17:25:01</span><button id="refresh-button">Updating...</button></div></div>
+            <h2>실시간 현황</h2>
+            <div class="status-grid">
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$615.82</strong></div>
+                <div><span>USDT 잔고</span><strong>$615.82</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-2.58</strong></div>
+            </div>
+            <h4>현재 포지션</h4>
+            <table class="styled-table">
+                <thead><tr><th>Symbol</th><th>Side</th><th>Amount</th><th>Entry Price</th><th>Mark Price</th><th>Unrealized PNL</th></tr></thead>
+                <tbody>
+                <tr>
+                    <td>SOLUSDT</td>
+                    <td>LONG</td>
+                    <td>0.1400</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$0.32</td>
+                </tr>
+            
+                <tr>
+                    <td>SOLUSDT</td>
+                    <td>SHORT</td>
+                    <td>-0.1400</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-red">$-0.06</td>
+                </tr>
+            
+                <tr>
+                    <td>ETHUSDT</td>
+                    <td>LONG</td>
+                    <td>0.0220</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$1.25</td>
+                </tr>
+            
+                <tr>
+                    <td>ETHUSDT</td>
+                    <td>SHORT</td>
+                    <td>-0.0550</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-red">$-1.29</td>
+                </tr>
+            
+                <tr>
+                    <td>BTCUSDT</td>
+                    <td>LONG</td>
+                    <td>0.0030</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-green">$4.08</td>
+                </tr>
+            
+                <tr>
+                    <td>BTCUSDT</td>
+                    <td>SHORT</td>
+                    <td>-0.0060</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="text-red">$-6.88</td>
+                </tr>
+            </tbody>
+            </table>
+        
             <div class="chart-section">
                 <h2>성과 요약</h2>
                 <div class="grid-container">
