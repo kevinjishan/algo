@@ -27,12 +27,12 @@
         </style>
     </head><body>
         <div class="container">
-            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-17 23:00:37</span><button id="refresh-button">Updating...</button></div></div>
+            <div class="header"><h1>📈 Dynamic Grid Bot 대시보드</h1><div class="header-right"><span>Last Updated: 2025-07-17 23:01:43</span><button id="refresh-button">Updating...</button></div></div>
             <h2>실시간 현황</h2>
             <div class="status-grid">
-                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$620.67</strong></div>
-                <div><span>USDT 잔고</span><strong>$620.67</strong></div>
-                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-1.11</strong></div>
+                <div><span>총 평가 자산 (Equity)</span><strong class="text-red">$620.94</strong></div>
+                <div><span>USDT 잔고</span><strong>$620.94</strong></div>
+                <div><span>미실현 손익 (Unrealized PNL)</span><strong class="text-red">$-0.84</strong></div>
             </div>
             <h4>현재 포지션</h4>
             <table class="styled-table">
@@ -44,7 +44,7 @@
                     <td>0.8600</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.48</td>
+                    <td class="text-red">$-0.39</td>
                 </tr>
             
                 <tr>
@@ -53,7 +53,7 @@
                     <td>-0.3300</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$0.63</td>
+                    <td class="text-green">$0.59</td>
                 </tr>
             
                 <tr>
@@ -62,16 +62,16 @@
                     <td>0.0700</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-2.09</td>
+                    <td class="text-red">$-1.72</td>
                 </tr>
             
                 <tr>
                     <td>ETHUSDT</td>
                     <td>SHORT</td>
-                    <td>-0.0250</td>
+                    <td>-0.0310</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-green">$1.03</td>
+                    <td class="text-green">$0.88</td>
                 </tr>
             
                 <tr>
@@ -80,7 +80,7 @@
                     <td>0.0030</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.15</td>
+                    <td class="text-red">$-0.03</td>
                 </tr>
             
                 <tr>
@@ -89,7 +89,7 @@
                     <td>-0.0030</td>
                     <td>$0.00</td>
                     <td>$0.00</td>
-                    <td class="text-red">$-0.05</td>
+                    <td class="text-red">$-0.17</td>
                 </tr>
             </tbody>
             </table>
@@ -98,8 +98,8 @@
                 <h2>성과 요약</h2>
                 <div class="grid-container">
                     <div class="pnl-summary"><span>총 실현 수익</span><strong class="text-green">$34.34</strong></div>
-                    <div class="pnl-summary"><span>총 실현 손실</span><strong class="text-red">$-26.50</strong></div>
-                    <div class="pnl-summary"><span>총 순손익</span><strong class="text-green">$7.84</strong></div>
+                    <div class="pnl-summary"><span>총 실현 손실</span><strong class="text-red">$-26.44</strong></div>
+                    <div class="pnl-summary"><span>총 순손익</span><strong class="text-green">$7.90</strong></div>
                 </div>
                 <div class="grid-container" style="margin-top: 20px;">
                     <div><h4>자산(Equity) 변화</h4><canvas id="equityChart"></canvas></div>
@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="grid-container" style="margin-top: 20px;">
-                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-17</td><td class='text-green'>9.83</td></tr><tr><td>2025-07-16</td><td class='text-red'>-1.87</td></tr></tbody></table></div>
+                <div><h2>일별 손익</h2><table class='styled-table'><thead><tr><th>날짜</th><th>일일 손익 (USDT)</th></tr></thead><tbody><tr><td>2025-07-17</td><td class='text-green'>9.83</td></tr><tr><td>2025-07-16</td><td class='text-red'>-1.81</td></tr></tbody></table></div>
                 <div><h2>최근 거래 기록</h2><table border="1" class="dataframe styled-table history-table">
   <thead>
     <tr style="text-align: right;">
@@ -120,6 +120,14 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>2025-07-17 14:01:18</td>
+      <td>ETH/USDT:USDT</td>
+      <td>sell</td>
+      <td>3405.7900</td>
+      <td>0.0060</td>
+      <td>0.0041</td>
+    </tr>
     <tr>
       <td>2025-07-17 13:45:44</td>
       <td>ETH/USDT:USDT</td>
@@ -511,14 +519,6 @@
       <td>175.6100</td>
       <td>0.0300</td>
       <td>0.0011</td>
-    </tr>
-    <tr>
-      <td>2025-07-17 11:27:56</td>
-      <td>SOL/USDT:USDT</td>
-      <td>buy</td>
-      <td>175.7700</td>
-      <td>0.0300</td>
-      <td>0.0026</td>
     </tr>
   </tbody>
 </table></div>
